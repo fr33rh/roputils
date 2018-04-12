@@ -76,7 +76,7 @@ class ELF(object):
         has_dynamic_section = True
         has_symbol_table = True
 
-        p = Popen(['readelf', '-W', '-a', fpath], env=env_with({"LC_MESSAGES": "C"}), stdout=PIPE)
+        p = Popen(['greadelf', '-W', '-a', fpath], env=env_with({"LC_MESSAGES": "C"}), stdout=PIPE)
         # read ELF Header
         while True:
             line = p.stdout.readline()
