@@ -1,53 +1,16 @@
 #!/usr/bin/env python2
 from mypwn import *
-from ctypes import *
-import sys
 import roputils
-
 
 def pwn(ip=None,port=None):
 
-    binary= 'babystack'
-    library='libc.so.6'
-    context.arch = 'amd64'
+    binary='babystack'
+    io,libc,ru,rn,sl,sn=init(binary)
+    context.arch = 'i386'
     context.log_level='debug'
+
+
     elf = ELF(binary)
-
-    if ip==None and port==None:
-        io = getio(binary)
-        libc=getlib()
-        #io = getio(binary,library)
-        #libc = ELF(library)
-    else:
-        io = remote(HOST, PORT)
-        libc = ELF(library)
-
-    ##################################
-
-    def ru(delim):
-        return io.recvuntil(delim)
-
-    def rn(count):
-        return io.recvn(count)
-
-    def sl(data):
-        return io.sendline(data)
-
-    def sn(data):
-        return io.send(data)
-
-    def uint32(x):
-        return c_uint32(x).value
-
-    def sint32(x):
-        return c_int32(x).value
-
-    def info(comment,addr):
-        print '#### log #####'
-        log.info(comment+':%#x',addr)
-
-    ##################################
-
     #p=cyclic(0x40)
     #sn(p)
     eip='laaa'
